@@ -1,3 +1,5 @@
+const config = require('../config');
+
 const jwt = require("jsonwebtoken");
 const auth = (req, res, next) => {
   try {
@@ -6,7 +8,7 @@ const auth = (req, res, next) => {
       return res
         .status(401)
         .json({ msg: "No authentication token, access denied" });
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = jwt.verify(token, config.secret);
     if (!verified)
       return res
         .status(401)

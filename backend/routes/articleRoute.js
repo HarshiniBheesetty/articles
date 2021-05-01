@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Article = require("../models/articleModel");
+const User = require("../models/userModel");
 
 router.route("/create").post((req, res) => {
   const title = req.body.title;
@@ -13,7 +14,7 @@ router.route("/create").post((req, res) => {
   newArticle.save();
 });
 
-router.route("/articles").get((req, res) => {
+router.route("/").get((req, res) => {
   Article.find().then((foundArticles) => res.json(foundArticles));
 });
 

@@ -15,9 +15,9 @@ function Register() {
     e.preventDefault();
     try {
       const newUser = { email, password, passwordCheck, displayName };
-      await axios.post("http://localhost:5000/users/register", newUser);
+      await axios.post("http://localhost:3002/users/register", newUser);
       const loginResponse = await axios.post(
-        "http://localhost:5000/users/login",
+        "http://localhost:3002/users/login",
         {
           email,
           password,

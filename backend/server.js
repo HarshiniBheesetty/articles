@@ -14,8 +14,8 @@ app.use(express.json());
 mongoose.connect(dbUri);
 
 //require route
-app.use("/", require("./routes/articleRoute"));
-app.use("/users", require("./routes/usersRoute"));
+  app.use("/articles", require("./routes/articleRoute"));
+  app.use("/users", require("./routes/userRoute"));
 
 app.listen(3002, function () {
   console.log("express server is running on port 3002");
