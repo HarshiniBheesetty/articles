@@ -17,9 +17,15 @@ router.route("/articles").get((req, res) => {
   Article.find().then((foundArticles) => res.json(foundArticles));
 });
 
+router.route("/login").get((req, res) => {
+  res.send({
+    token: "test123",
+  });
+});
+
 //get particular article
-router.route("/article/:id").get((req, res) => {
-  Article.findById(req.params.id)
+router.route("/:id").get((req, res) => {
+  Article.findByIdAndUpdate(req.params.id, req.body)
     .then((article) => res.json(article))
     .catch((err) => res.status(400).json("Error: " + err));
 });

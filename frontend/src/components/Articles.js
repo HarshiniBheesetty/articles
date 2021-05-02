@@ -7,9 +7,14 @@ function Articles() {
     {
       title: "",
       content: "",
+      upvotes: 0,
     },
   ]);
 
+  function handleClick(e) {
+    console.log(e);
+    console.log("clicked upvote");
+  }
   useEffect(() => {
     fetch("/articles")
       .then((res) => {
@@ -23,12 +28,11 @@ function Articles() {
     <div>
       <h1>Articles</h1>
       {articles.map((article, key) => (
-        <Link
-          key={key}
-          className="article-list-item"
-          to={`/articles/:${article.title}`}>
+        <Link key={key} className="article-list-item">
           <h3>{article.title}</h3>
-          <p>{article.content.substring(0, 150)}...</p>
+          {article.upvotes}
+          <button onClick={handleClick}> Upvotes</button>
+          <p>{article.content}</p>
         </Link>
       ))}
     </div>

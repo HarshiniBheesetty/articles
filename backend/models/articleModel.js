@@ -6,7 +6,7 @@ const articleSchema = {
   author: String,
   upvotes: {
     type: Number,
-    defualt: 0,
+    default: 0,
   },
 };
 
