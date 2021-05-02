@@ -21,9 +21,11 @@ function NavBar() {
           <li>
             <Link to="/">WriteUP</Link>
           </li>
-          <li>
+          { userData.user &&
+            <li>
             <Link to="/articles">Articles</Link>
           </li>
+          }
           <li>
             <Link to="/new-article">New Article</Link>
           </li>
