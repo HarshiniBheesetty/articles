@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import UserContext from "./userContext";
 import ErrorNotice from "./ErrorNotice";
+import "./Register.css";
 function Register() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -63,7 +64,9 @@ function Register() {
           id="dsplay-name"
           onChange={(e) => setDisplayName(e.target.value)}
         />
-        <input type="submit" value="Register" className="btn btn-primary" />
+        <button type="submit" value="Register">
+          Register
+        </button>
       </form>
     </div>
   );

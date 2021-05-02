@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Articles.css";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 
 function Articles() {
   const [articles, setArticles] = useState([
@@ -11,8 +12,9 @@ function Articles() {
     },
   ]);
 
-  function handleClick(e) {
-    console.log(e);
+  function handleClick() {
+    // setArticles(articles.upvotes);
+    console.log(articles.upvotes);
     console.log("clicked upvote");
   }
   useEffect(() => {
@@ -24,14 +26,20 @@ function Articles() {
       })
       .then((jsonRes) => setArticles(jsonRes));
   });
+
   return (
     <div>
       <h1>Articles</h1>
       {articles.map((article, key) => (
         <Link key={key} className="article-list-item">
           <h3>{article.title}</h3>
-          {article.upvotes}
-          <button onClick={handleClick}> Upvotes</button>
+          <div className="likes">
+            {article.upvotes} <span>likes</span>
+            <ThumbUpAltIcon
+              className="thumbs-up"
+              onClick={handleClick}></ThumbUpAltIcon>
+          </div>
+
           <p>{article.content}</p>
         </Link>
       ))}

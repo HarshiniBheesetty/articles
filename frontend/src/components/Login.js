@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import UserContext from "./userContext";
 import ErrorNotice from "./ErrorNotice";
+import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState();
@@ -29,7 +30,7 @@ function Login() {
     }
   };
   return (
-    <div className="login">
+    <div className="Login">
       <h2>Login</h2>
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
@@ -41,13 +42,16 @@ function Login() {
           id="email"
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <label>Password: </label>
         <input
           type="password"
           id="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value="Login" className="btn btn-primary" />
+        <button type="submit" value="Login">
+          Login
+        </button>
       </form>
     </div>
   );
