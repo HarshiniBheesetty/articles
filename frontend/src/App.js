@@ -4,7 +4,6 @@ import Articles from "./components/Articles";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import NewArticle from "./components/NewArticle";
-import Article from "./components/Article";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import UserContext from "./components/userContext";
@@ -17,10 +16,12 @@ function App() {
     user: undefined
   });
 
+  const value = { userData, setUserData };
+
   return (
     <Router>
       <NavBar />
-      <UserContext.Provider value={{ userData, setUserData }}>
+      <UserContext.Provider value={value}>
         <div id="page-body">
           <Switch>
             <Route path="/" exact>
@@ -28,9 +29,7 @@ function App() {
             </Route>
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <Route path="/articles">
-              <Articles />
-            </Route>
+            <Route path="/articles" component={Articles} />
 
             <Route path="/new-article">
               <NewArticle />

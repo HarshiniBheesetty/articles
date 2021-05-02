@@ -4,10 +4,8 @@ import UserContext from "./userContext";
 import axios from "axios";
 
 function Home() {
-  const [userData, setUserData] = useState({
-    token: undefined,
-    user: undefined,
-  });
+  const { userData, setUserData } = useContext(UserContext);
+
   useEffect(() => {
       const checkLoggedIn = async () => {
         let token = localStorage.getItem("auth-token");

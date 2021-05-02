@@ -1,2 +1,9 @@
-import { createContext } from "react";
-export default createContext(null);
+import React from "react";
+
+// set the defaults
+const UserContext = React.createContext({
+    userData: null,
+    setUserData: () => {}
+});
+
+export default UserContext;

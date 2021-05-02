@@ -25,10 +25,37 @@ router.route("/login").get((req, res) => {
 });
 
 //get particular article
-router.route("/:id").get((req, res) => {
-  Article.findByIdAndUpdate(req.params.id, req.body)
-    .then((article) => res.json(article))
-    .catch((err) => res.status(400).json("Error: " + err));
+router.route("/upvote").put((req, res) => {
+  const articleFromQuery = req.body.article;
+  const userId = req.body.userId;
+  Article.findById(articleFromQuery._id).then((article) => {
+    let updatedUpvotes = []
+    if(article.upvotes.indexOf(userId) > -1) {
+      updatedUpvotes = article.upvotes.filter((upvote) => {
+        return upvote !== userId
+      });
+
+      const updatedArticle = {...articleFromQuery, upvotes: updatedUpvotes};
+
+      Article.findByIdAndUpdate(article._id, updatedArticle, { new: true })
+      .then((err, response) => {
+        console.log(response);
+        res.json({status: 200, ok: true})
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+    } else {
+      articleFromQuery.upvotes.push(userId);
+
+      Article.findByIdAndUpdate(article._id, articleFromQuery, { new: true })
+      .then((err, response) => {
+        console.log(response);
+        res.json({status: 200, ok: true})
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+    }
+  });
+
+  
 });
 
 module.exports = router;

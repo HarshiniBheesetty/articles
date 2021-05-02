@@ -20,3 +20,7 @@
 .thumbs-up :hover {
   color: #285db0;
 }
+
+.thumbs-up.active {
+  fill: #285db0;
+}

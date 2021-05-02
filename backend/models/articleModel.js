@@ -5,8 +5,8 @@ const articleSchema = {
   content: String,
   author: String,
   upvotes: {
-    type: Number,
-    default: 0,
+    type: [String],
+    default: [],
   },
 };
 
