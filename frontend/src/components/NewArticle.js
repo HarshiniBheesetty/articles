@@ -27,7 +27,7 @@ function NewArticle() {
       content: input.content,
     };
     console.log(input);
-    axios.post("http://localhost:3002/create", newArticle);
+    axios.post("http://localhost:3002/articles/create", newArticle);
   }
 
   return (

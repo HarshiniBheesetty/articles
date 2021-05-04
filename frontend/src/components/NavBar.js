@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ handleLogout, storage }) {
+  // const [displayArticles, setDisplayArticles] = useState(null);
+
+  // const [storage, setStorage] = useState(localStorage.getItem("auth-token"));
+
+  // useEffect(() => {
+  //   // setDisplayArticles(storage);
+  // }, [storage]);
+  // function handleLogout() {
+  //   localStorage.setItem("auth-token", null);
+  //   setStorage(null);
+  // }
   return (
     // <nav className="navbar bg-dark container">
     //   <h4>
@@ -21,11 +32,11 @@ function NavBar() {
           <li>
             <Link to="/">WriteUP</Link>
           </li>
-          { userData.user &&
+          {storage !== null && (
             <li>
-            <Link to="/articles">Articles</Link>
-          </li>
-          }
+              <Link to="/articles">Articles</Link>
+            </li>
+          )}
           <li>
             <Link to="/new-article">New Article</Link>
           </li>
@@ -34,6 +45,9 @@ function NavBar() {
           </li>
           <li>
             <Link to="/register">Register</Link>
+          </li>
+          <li>
+            <Link onClick={handleLogout}>Logout</Link>
           </li>
         </ul>
       </nav>

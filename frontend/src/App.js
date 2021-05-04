@@ -11,16 +11,25 @@ import "./App.css";
 // import Login from "./components/Login";
 
 function App() {
-  const [ userData, setUserData] = useState({
+  const [userData, setUserData] = useState({
     token: undefined,
-    user: undefined
+    user: undefined,
   });
+  const [storage, setStorage] = useState(localStorage.getItem("auth-token"));
+
+  useEffect(() => {
+    // setDisplayArticles(storage);
+  }, [storage]);
+  function handleLogout() {
+    localStorage.setItem("auth-token", null);
+    setStorage(null);
+  }
 
   const value = { userData, setUserData };
 
   return (
     <Router>
-      <NavBar />
+      <NavBar handleLogout={handleLogout} storage={storage} />
       <UserContext.Provider value={value}>
         <div id="page-body">
           <Switch>
@@ -28,8 +37,12 @@ function App() {
               <Home></Home>
             </Route>
             <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/articles" component={Articles} />
+            <Route path="/login">
+              <Login setStorage={setStorage}></Login>
+            </Route>
+            <Route path="/articles">
+              <Articles storage={storage} />
+            </Route>
 
             <Route path="/new-article">
               <NewArticle />

@@ -5,11 +5,11 @@ import UserContext from "./userContext";
 import ErrorNotice from "./ErrorNotice";
 import "./Login.css";
 
-function Login() {
+function Login({ setStorage }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
   const submit = async (e) => {
     e.preventDefault();
@@ -24,9 +24,11 @@ function Login() {
         user: loginResponse.data.user,
       });
       localStorage.setItem("auth-token", loginResponse.data.token);
+      setStorage(loginResponse.data.token);
       history.push("/");
     } catch (err) {
-      err.response.data.msg && setError(err.response.data.msg);
+      // err.response.data.msg && setError(err.response.data.msg);
+      console.log(err.message);
     }
   };
   return (

@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const User = require("../models/userModel");
-const config = require('../config');
+const config = require("../config");
 // Register
 router.post("/register", async (req, res) => {
   try {
@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
     console.log(isMatch);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
     const token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
+      expiresIn: 86400, // expires in 24 hours
     });
     res.json({
       token,
@@ -96,5 +96,29 @@ router.get("/", auth, async (req, res) => {
     displayName: user.displayName,
     id: user._id,
   });
+});
+
+router.patch("/updateProfile/:id", async (req, res) => {
+  try {
+    const data = req.body;
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    try {
+      let modifiedUser = new User();
+      modifiedUser.displayName = data.displayName;
+      modifiedUser.email = data.email;
+      modifiedUser.password = data.password;
+      modifiedUser._id = userId;
+      console.log(modifiedUser);
+      const result = await User.findByIdAndUpdate(userId, modifiedUser, {
+        new: true,
+      });
+      res.send(JSON.stringify(result));
+    } catch (err) {
+      res.send(err.message);
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 module.exports = router;
